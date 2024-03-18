@@ -5,11 +5,10 @@ import { useFrame } from '@react-three/fiber'
 
 const ThreeElements = () => {
  const boxRef = useRef<THREE.Mesh>(null);
-
     useFrame((state, delta) => {
-        // boxRef.current.rotation.x += delta;
-        // boxRef.current.position.y += delta;
-        // boxRef.current.scale.z += 0.01;
+        boxRef.current.rotation.x += delta;
+        boxRef.current.position.x += 0.01;
+        boxRef.current.scale.x += 0.01;
     })
 
 
@@ -17,8 +16,14 @@ const ThreeElements = () => {
  return (
   <>
       <directionalLight position={[5,5,5]}/>
-      <mesh rotation={[THREE.MathUtils.degToRad(45),THREE.MathUtils.degToRad(45),0]}
-            ref={boxRef}
+      <mesh ref={boxRef}
+            position={[0,0,0]}
+            scale={[1,1,1]}
+            rotation={[
+                THREE.MathUtils.degToRad(0),
+                THREE.MathUtils.degToRad(0),
+                THREE.MathUtils.degToRad(0),
+            ]}
       >
           <boxGeometry />
           {/*<sphereGeometry/> 원형 */}

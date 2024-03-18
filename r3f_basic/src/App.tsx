@@ -13,9 +13,10 @@ function App() {
                 near: 1,
                 far: 20,
                 fov: 75,
-                position: [3,3,0]
+                position: [5,5,5]
             }}
         >
+            <color attach="background" args={["white"]} />
             {/* Math.PI = 180 */}
             {/* Math.PI * 2 = 360 */}
             {/* Math.PI / 4 = 45 */}
@@ -26,7 +27,7 @@ function App() {
                 // maxPolarAngle={Math.PI - Math.PI / 6}
             />
             <axesHelper args={[5]}/>
-            <gridHelper args={[20,20,0xff0000,'teal']}/>
+            <gridHelper args={[10,10]}/>
             <ThreeElements/>
         </Canvas>
     </>
