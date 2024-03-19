@@ -7,7 +7,11 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "preinstall": "npx npm-force-resolutions"
+  },
+  "resolutions": {
+    "react-error-overlay": "6.0.9"
   },
   "dependencies": {
     "@react-three/drei": "^9.102.6",
@@ -28,6 +32,7 @@
     "eslint-plugin-react-refresh": "^0.4.5",
     "leva": "^0.9.35",
     "typescript": "^5.2.2",
-    "vite": "^5.1.6"
+    "vite": "^5.1.6",
+    "react-error-overlay": "^6.0.11"
   }
 }
