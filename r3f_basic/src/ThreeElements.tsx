@@ -8,12 +8,16 @@ const ThreeElements = () => {
     const boxCopyRef = useRef<THREE.Mesh>(null);
 
     const boxControl = useControls({
-        width: {value: 1, min: 0.1, max: 10, step: 0.1},
-        height: {value: 1, min: 0.1, max: 10, step: 0.1},
-        depth: {value: 1, min: 0.1, max: 10, step: 0.1},
-        widthSeg: {value: 1, min: 0.1, max: 10, step: 0.1},
-        heightSeg: {value: 1, min: 0.1, max: 10, step: 0.1},
-        depthSeg: {value: 1, min: 0.1, max: 10, step: 0.1},
+        // width: {value: 1, min: 0.1, max: 10, step: 0.1},
+        // height: {value: 1, min: 0.1, max: 10, step: 0.1},
+        // depth: {value: 1, min: 0.1, max: 10, step: 0.1},
+        // widthSeg: {value: 1, min: 0.1, max: 10, step: 0.1},
+        // heightSeg: {value: 1, min: 0.1, max: 10, step: 0.1},
+        // depthSeg: {value: 1, min: 0.1, max: 10, step: 0.1},
+        radius: {value: 1, min: 0.1, max: 10, step: 0.1},
+        seg: {value: 32, min: 1, max: 100, step: 1},
+        thetaStart: {value: 0, min: 0, max: 360, step: 0.1},
+        thetaLength: {value: 360, min: 1, max: 360, step: 0.1},
     })
 
     // useFrame((state, delta) => {
@@ -52,14 +56,13 @@ const ThreeElements = () => {
                 ref={boxRef}
                position={[0, 0, 0]}
             >
-                <boxGeometry args={[
-                    boxControl.width,
-                    boxControl.height,
-                    boxControl.depth,
-                    boxControl.widthSeg,
-                    boxControl.heightSeg,
-                    boxControl.depthSeg]}
-                />
+                <circleGeometry args={[
+                    boxControl.radius,
+                    boxControl.seg,
+                    THREE.MathUtils.degToRad(boxControl.thetaStart),
+                    THREE.MathUtils.degToRad(boxControl.thetaLength),
+
+                ]}/>
                 <meshStandardMaterial wireframe />
             </mesh>
             <mesh ref={boxCopyRef}>
