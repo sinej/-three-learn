@@ -1,73 +1,115 @@
 import {useEffect, useRef} from "react";
-import * as THREE from 'three';
 import { useFrame } from '@react-three/fiber'
-import { useControls } from "leva";
-
+import * as THREE from "three";
+import {useTexture} from "@react-three/drei";
 const ThreeElements = () => {
-    const boxRef = useRef<THREE.Mesh>(null);
-    const boxCopyRef = useRef<THREE.Mesh>(null);
 
-    const boxControl = useControls({
-        // width: {value: 1, min: 0.1, max: 10, step: 0.1},
-        // height: {value: 1, min: 0.1, max: 10, step: 0.1},
-        // depth: {value: 1, min: 0.1, max: 10, step: 0.1},
-        // widthSeg: {value: 1, min: 0.1, max: 10, step: 0.1},
-        // heightSeg: {value: 1, min: 0.1, max: 10, step: 0.1},
-        // depthSeg: {value: 1, min: 0.1, max: 10, step: 0.1},
-        radius: {value: 1, min: 0.1, max: 10, step: 0.1},
-        seg: {value: 32, min: 1, max: 100, step: 1},
-        thetaStart: {value: 0, min: 0, max: 360, step: 0.1},
-        thetaLength: {value: 360, min: 1, max: 360, step: 0.1},
+    const meshRef = useRef<THREE.Mesh>(null);
+    const groupRef = useRef<THREE.Group>(null);
+
+    const metcap = useTexture('./imgs/matcap1.jpg')
+
+    useFrame((state, delta) => {
+
     })
 
-    // useFrame((state, delta) => {
-        // boxRef.current.rotation.x += delta;
-        // boxRef.current.position.x += 0.01;
-        // boxRef.current.scale.x += 0.01;
-        // scence.rotation.x = THREE.MathUtils.degToRad(45)
-        // scence.rotation.x += 0.01;
-        // groupRef.current.rotation.x += delta;
-    // })
-
     useEffect(() => {
-        boxCopyRef.current.geometry = boxRef.current.geometry;
-    }, [boxControl])
+        for(let i = 0; i < groupRef.current!.children.length; i++) {
+            const mesh = groupRef.current!.children[i] as THREE.Mesh;
+            mesh.geometry = meshRef.current!.geometry;
+            mesh.position.x = i * 2;
 
-    // const geometry = new THREE.BoxGeometry(1,1,1);
-    // const material = new THREE.MeshBasicMaterial({color: 0x00ff00});
-    // const cube = new THREE.Mesh(geometry, material);
-    // scene.add(cube);
+        }
 
+        // meshCopyRef1.current!.geometry = meshRef.current.geometry;
+        // meshCopyRef2.current!.geometry = meshRef.current.geometry;
+    }, []);
 
 
     return (
         <>
-            <directionalLight position={[5,5,5]}/>
-            {/*<Sphere position={[2, 0, 0]}>*/}
-            {/*    <meshStandardMaterial color="green"/>*/}
-            {/*</Sphere>*/}
-            {/*<Cone>*/}
-            {/*    <meshStandardMaterial color="green"/>*/}
-            {/*</Cone>*/}
-            {/*<Box position={[-2, 0, 0]}>*/}
-            {/*    <meshStandardMaterial color="green"/>*/}
-            {/*</Box>*/}
+            <directionalLight position={[5, 5, 5]} intensity={2}/>
+            {/*<fog attach={"fog"} args={['blue', 3 ,10]}/>*/}
             <mesh
-                ref={boxRef}
-               position={[0, 0, 0]}
+                ref={meshRef}
+                position={[0, 0, 0]}
             >
-                <circleGeometry args={[
-                    boxControl.radius,
-                    boxControl.seg,
-                    THREE.MathUtils.degToRad(boxControl.thetaStart),
-                    THREE.MathUtils.degToRad(boxControl.thetaLength),
+                <sphereGeometry/>
+                {/*<boxGeometry/>*/}
+                <meshStandardMaterial
+                    visible={false}
+                    color="green"
+                />
+            </mesh>
 
-                ]}/>
-                <meshStandardMaterial wireframe />
-            </mesh>
-            <mesh ref={boxCopyRef}>
-                <meshStandardMaterial color="red"/>
-            </mesh>
+            <group ref={groupRef}>
+                <mesh>
+                    <boxGeometry/>
+                    <meshStandardMaterial
+                        wireframe
+                    />
+                </mesh>
+                <mesh>
+                    <boxGeometry/>
+                    <meshStandardMaterial
+                        color="red"
+                        visible={true}
+                        transparent={false}
+                        opacity={1}
+                        side={THREE.FrontSide}
+                        alphaTest={1}
+                        depthTest={true}
+                        depthWrite={true}
+                        fog={true}
+                    />
+                </mesh>
+                <mesh>
+                    <boxGeometry/>
+                    <meshStandardMaterial
+                        color="red"
+                        visible={true}
+                        transparent={false}
+                        opacity={1}
+                        side={THREE.FrontSide}
+                        alphaTest={1}
+                        depthTest={true}
+                        depthWrite={true}
+                        fog={false}
+
+                        emissive={"black"}
+                    />
+                </mesh>
+                <mesh>
+                    <boxGeometry/>
+                    <meshStandardMaterial
+                        color="red"
+                        visible={true}
+                        transparent={false}
+                        opacity={1}
+                        side={THREE.FrontSide}
+                        alphaTest={1}
+                        depthTest={true}
+                        depthWrite={true}
+                        fog={true}
+                        emissive={"black"}
+                        specular={"fff"}
+                        shininess={40}
+                        flatShading={true}
+                    />
+                </mesh>
+                <mesh>
+                    <meshNormalMaterial/>
+                </mesh>
+                <mesh>
+                    <meshDepthMaterial/>
+                </mesh>
+                <mesh>
+                    <meshDepthMaterial matcap={metcap} />
+                </mesh>
+                <mesh>
+                    <meshToonMaterial/>
+                </mesh>
+            </group>
         </>
     );
 }
