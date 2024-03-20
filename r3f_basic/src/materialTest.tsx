@@ -1,10 +1,12 @@
 
+import { useFrame} from '@react-three/fiber'
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { useControls } from 'leva';
 import { useTexture } from '@react-three/drei';
 
-export default function ThreeElement(){
+export default function MaterialTest(){
+
     const meshRef = useRef<THREE.Mesh>(null);
     const groupRef = useRef<THREE.Group>(null);
 

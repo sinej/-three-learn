@@ -1,6 +1,6 @@
 import './App.css'
 import { Canvas } from '@react-three/fiber'
-import ThreeElement from './ThreeElement';
+import LightTest from './lightTest.tsx';
 import { OrbitControls } from '@react-three/drei';
 
 function App() {
@@ -19,7 +19,7 @@ function App() {
         <OrbitControls />
         <axesHelper args={[6]} />
         <gridHelper args={[10, 10]} />
-        <ThreeElement />
+        <LightTest />
       </Canvas>
     </>
   )
