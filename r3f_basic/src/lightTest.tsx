@@ -1,5 +1,3 @@
-
-import { useFrame} from '@react-three/fiber'
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { Environment, useHelper, useTexture } from '@react-three/drei';
@@ -9,7 +7,6 @@ export default function LightTest(){
     const meshRef = useRef<THREE.Mesh>(null);
     const groupRef = useRef<THREE.Group>(null);
 
-    const matcap = useTexture('./imgs/matcap3.jpg');
     const tone = useTexture('./imgs/threeTone.jpg');
     tone.minFilter = THREE.NearestFilter;
     tone.magFilter = THREE.NearestFilter;
@@ -35,8 +32,7 @@ export default function LightTest(){
 
     return(
         <>
-            {/* <directionalLight
-
+            <directionalLight
                 castShadow
                 shadow-camera-top={10}
                 shadow-camera-bottom={-10}
@@ -45,13 +41,13 @@ export default function LightTest(){
                 shadow-mapSize = {[512,512]}
 
                 ref={dLight}
-                color={'#fff'} 
-                position={[0,5,0]} 
+                color={'#fff'}
+                position={[0,5,0]}
                 intensity={5}
                 target-position={[0,0,2]}
-            /> */}
+            />
 
-            {/* <pointLight
+            <pointLight
                 castShadow
                 shadow-camera-top={10}
                 shadow-camera-bottom={-10}
@@ -62,15 +58,15 @@ export default function LightTest(){
                 position={[0,0,2]} 
                 intensity={50}
                 distance={5}
-            /> */}
+            />
 
             <spotLight
                 castShadow
-                // shadow-camera-top={10}
-                // shadow-camera-bottom={-10}
-                // shadow-camera-left={-10}
-                // shadow-camera-right={10}
-                // shadow-mapSize = {[512,512]}
+                shadow-camera-top={10}
+                shadow-camera-bottom={-10}
+                shadow-camera-left={-10}
+                shadow-camera-right={10}
+                shadow-mapSize = {[512,512]}
                 ref={sLight}
                 color={'#fff'} 
                 position={[0,5,0]} 
@@ -81,11 +77,11 @@ export default function LightTest(){
                 penumbra={0.5}
             />
 
-            {/* <Environment 
+            <Environment
                 files={'./imgs/hdr1.hdr'}
                 background
                 blur={0}
-            /> */}
+            />
 
             <mesh 
                 rotation-x={[THREE.MathUtils.degToRad(-90)]}
